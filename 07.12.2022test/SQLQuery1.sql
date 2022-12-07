@@ -52,9 +52,10 @@ from Orders
 where CustomerID like 'B%' and (EmployeeID=2 or EmployeeID=5) and ShipVia=1 and ShipName like 'B%'
 
 --9
-select Orders.OrderId, ProductID, UnitPrice, Quantity,Discount, OrderDate,EmployeeID,CustomerID
-from Orders inner join [Order Details] on [Order Details].OrderID=Orders.OrderID
-where Orders.OrderId=10248 
+select [Order Details].OrderId, ProductID, UnitPrice, Quantity,Discount, OrderDate,EmployeeID,CustomerID
+from [Order Details] inner join Orders on Orders.OrderID=[Order Details].OrderID or Orders.OrderID!=[Order Details].OrderID
+where [Order Details].OrderId=10248 and Orders.CustomerID = 'VINET' and Discount=0
+order by [Order Details].UnitPrice,Orders.EmployeeID
 
 --10
 select distinct CustomerID,ShipRegion as 'Region' ,ShipCountry as 'Country'
